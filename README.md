@@ -1,24 +1,60 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
+| Column   | Type   | Options     |
+| -------- | ------ | ----------- |
+| nickname | string | null: false |
+| mail     | string | null: false |
+| password | string | null: false |
 
-Things you may want to cover:
+### Association
+- has_one  :profile
+- has_many :items
+- has_many :purchases
 
-* Ruby version
+## itemsテーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| name          | string     | null: false                    |
+| image         | string     | null: false                    |
+| price         | integer    | null: false                    |
+| user          | references | null: false, foreign_key: true |
+| category_id   | integer    | null: false                    |
+| status_id     | integer    | null: false                    |
+| fee_id        | integer    | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| duration_id   | integer    | null: false                    |
 
-* System dependencies
+### Association
+- has_one :purchase
+- belongs_to :user
+- belongs_to_active_hash :categories
+- belongs_to_active_hash :status
+- belongs_to_active_hash :fee
+- belongs_to_active_hash :prefecture
+- belongs_to_active_hash :duration
 
-* Configuration
+## purchasesテーブル
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| user     | references | null: false, foreign_key: true |
+| item     | references | null: false, foreign_key: true |
 
-* Database creation
+### Association
+- has_one :address
+- belongs_to :user
+- belongs_to :item
 
-* Database initialization
+## addressesテーブル
+| Column   | Type       | Options                        |
+| -------- | ---------- | ------------------------------ |
+| postal   | integer    | null: false
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| house_number  | string     |                                |
+| phone_number  | integer    | null: false                    |
+| purchase_id   | references | null: false, foreing_key: true |
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Association
+- belongs_to :purchase
+- belongs_to_active_hash :prefecture
