@@ -1,37 +1,28 @@
 # テーブル設計
 
 ## usersテーブル
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| nickname | string | null: false |
-| mail     | string | null: false |
-| password | string | null: false |
-
-### Association
-- has_one  :profile
-- has_many :items
-- has_many :purchases
-
-## profilesテーブル
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
+| nickname            | string     | null: false                    |
+| mail                | string     | null: false                    |
+| password            | string     | null: false                    |
 | family_name         | string     | null: false                    |
 | first_name          | string     | null: false                    |
 | family_name_reading | string     | null: false                    |
 | first_name_reading  | string     | null: false                    |
-| birth_year          | integer    | null: false                    |
-| birth_month         | integer    | null: false                    |
-| birth_day           | integer    | null: false                    |
+| birthday            | date       | null: false                    |
 | user                | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :user
+- has_many :items
+- has_many :purchases
+
 
 ## itemsテーブル
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | name          | string     | null: false                    |
-| image         | string     | null: false                    |
+| text          | string     | null: false                    |
 | price         | integer    | null: false                    |
 | user          | references | null: false, foreign_key: true |
 | category_id   | integer    | null: false                    |
@@ -61,14 +52,15 @@
 - belongs_to :item
 
 ## addressesテーブル
-| Column   | Type       | Options                        |
-| -------- | ---------- | ------------------------------ |
-| postal   | integer    | null: false
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal        | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
-| house_number  | string     |                                |
-| phone_number  | integer    | null: false                    |
-| purchase_id   | references | null: false, foreing_key: true |
+| house_number  | string     | null: false                    |
+| building      | string     |                                |
+| phone_number  | string     | null: false                    |
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
