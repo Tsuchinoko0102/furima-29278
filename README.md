@@ -4,14 +4,13 @@
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
 | nickname            | string     | null: false                    |
-| mail                | string     | null: false                    |
-| password            | string     | null: false                    |
+| email               | string     | null: false                    |
+| encrypted_password  | string     | null: false                    |
 | family_name         | string     | null: false                    |
 | first_name          | string     | null: false                    |
 | family_name_reading | string     | null: false                    |
 | first_name_reading  | string     | null: false                    |
 | birthday            | date       | null: false                    |
-| user                | references | null: false, foreign_key: true |
 
 ### Association
 - has_many :items
