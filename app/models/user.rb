@@ -4,17 +4,25 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
-  READING_REGEX = /\A[ァ-ヶー－]+\z/.freeze
-
   with_options presence: true do
+    NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
+    READING_REGEX = /\A[ァ-ヶー－]+\z/.freeze
     validates :nickname
-    validates :email, format: {with: /\A\S+@\S+\.\S+\z/}, uniqerness: true
-    validates :password, format: {with: /\A[a-zA-Z0-9]+\z/}, length: {minimum: 6}
-    validates :family_name, with: NAME_REGEX
-    validates :first_name, with:NAME_REGEX
-    validates :family_name_reading, with: READING_REGEX
-    validates :first_name_reading, with: READING_REGEX
+    validates :family_name, format: {with: NAME_REGEX, message: "Full-width characters"}
+    validates :first_name, format: {with: NAME_REGEX, message: "Full-width characters"}
+    validates :family_name_reading, format: {with: READING_REGEX, message: "Full-width katakana characters"}
+    validates :first_name_reading, format: {with: READING_REGEX, message: "Full-width katakana characters"}
+    validates :birthday
   end
   
+  with_options allow_blank: true do
+    EMAIL_REGEX = /\A\S+@\S+\.\S+\z/.freeze
+    validates :email, format: {with: EMAIL_REGEX}, uniqueness: { case_sensitive: true }
+    validates :password, length: {minimum: 6}
+  end
+
+  PASS_REGEX = /\A[a-zA-Z0-9]+\z/.freeze
+  validates :password, format: {with: PASS_REGEX, message: "Include both letters and numbers"}
+
+
 end
