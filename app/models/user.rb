@@ -17,12 +17,15 @@ class User < ApplicationRecord
   
   with_options allow_blank: true do
     EMAIL_REGEX = /\A\S+@\S+\.\S+\z/.freeze
-    validates :email, format: {with: EMAIL_REGEX}, uniqueness: { case_sensitive: true }
+    PASS_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+    validates :email, format: {with: EMAIL_REGEX}
     validates :password, length: {minimum: 6}
+    validates :password, format: {with: PASS_REGEX, message: "Include both letters and numbers"}
   end
 
-  PASS_REGEX = /\A[a-zA-Z0-9]+\z/.freeze
-  validates :password, format: {with: PASS_REGEX, message: "Include both letters and numbers"}
+  validates :email, uniqueness: { case_sensitive: true, message: "has already been taken"}
+
+  
 
 
 end
