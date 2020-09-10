@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+
   NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
   READING_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   PASS_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
