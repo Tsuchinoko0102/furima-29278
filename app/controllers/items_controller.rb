@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-   @item = Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def update
@@ -34,7 +34,6 @@ class ItemsController < ApplicationController
       render :edit
     end
   end
-
 
   private
 
