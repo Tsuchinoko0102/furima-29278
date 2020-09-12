@@ -1,6 +1,4 @@
 function calc () {
-  document.getElementById("item-price").value = ""
-
   document.addEventListener("keyup", () => {
     const amount = document.getElementById("item-price").value;
     const commission = parseInt(`${amount * 0.1}`, 10);
