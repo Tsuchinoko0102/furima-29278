@@ -19,8 +19,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @items = Item.includes(:user)
-    @item = @items.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   private
@@ -30,6 +29,4 @@ class ItemsController < ApplicationController
           .permit(:name, :text, :price, :user, :category_id, :status_id, :fee_id, :prefecture_id, :duration_id, :image)
           .merge(user_id: current_user.id)
   end
-
-  
 end
