@@ -29,7 +29,6 @@ class Item < ApplicationRecord
     validates :duration_id
   end
 
-  validates :price, format: { with: /\A[0-9]+\z/, message: 'is invalid' }
   validates :price, numericality: { greater_than: 300 }
   validates :price, numericality: { less_than: 9_999_999 }
 end

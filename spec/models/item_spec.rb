@@ -66,10 +66,22 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("User can't be blank")
     end
 
+    it 'categoryの情報がない場合登録できないこと' do
+      @item.category_id = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Category can't be blank")
+    end
+
     it 'categoryのidが1の場合は登録できないこと' do
       @item.category_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include('Category Select')
+    end
+
+    it 'statusの情報がない場合登録できないこと' do
+      @item.status_id = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Status can't be blank")
     end
 
     it 'statusのidが1の場合は登録できないこと' do
@@ -78,16 +90,34 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include('Status Select')
     end
 
-    it 'feeのdiが１の場合は登録できないこと' do
+    it 'feeの情報がない場合登録できないこと' do
+      @item.fee_id = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Fee can't be blank")
+    end
+
+    it 'feeのidが１の場合は登録できないこと' do
       @item.fee_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include('Fee Select')
+    end
+
+    it 'prefectureの情報がない場合登録できないこと' do
+      @item.prefecture_id = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Prefecture can't be blank")
     end
 
     it 'prefectureのidが1の場合は登録できないこと' do
       @item.prefecture_id = 1
       @item.valid?
       expect(@item.errors.full_messages).to include('Prefecture Select')
+    end
+
+    it 'durationの情報がない場合は登録できないこと' do
+      @item.duration_id = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Duration can't be blank")
     end
 
     it 'durationのiｄが1の場合は登録できないこと' do
