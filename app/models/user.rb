@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
-
+  has_many :orders
   NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
   READING_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   PASS_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
