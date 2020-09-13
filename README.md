@@ -39,7 +39,7 @@
 - belongs_to_active_hash :prefecture
 - belongs_to_active_hash :duration
 
-## purchasesテーブル
+## ordersテーブル
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
 | user     | references | null: false, foreign_key: true |
