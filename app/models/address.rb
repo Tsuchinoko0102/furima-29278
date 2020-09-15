@@ -3,5 +3,5 @@ class Address < ApplicationRecord
   belongs_to :order
   belongs_to_active_hash :prefecture
 
-  validates :order, presence: true
+  validates :order, presence: true, uniqueness: true
 end
