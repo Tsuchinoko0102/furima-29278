@@ -4,10 +4,10 @@ class OrderAddress
                 :city, :house_number, :building, :phone_number, :order, :token, :price
 
   with_options presence: true do
-    #ordersテーブルのバリデーション
+    # ordersテーブルのバリデーション
     validates :user
     validates :item
-    #addressesテーブルのバリデーション
+    # addressesテーブルのバリデーション
     validates :postal
     validates :prefecture_id
     validates :city
@@ -17,14 +17,13 @@ class OrderAddress
     validates :price
   end
 
-  #addressesテーブルのバリデーション
-  validates :postal, format: {with: /\A\d{3}[-]\d{4}\z/, message:"Input correctly"}
-  validates :phone_number, format: {with: /\A\d{10,11}\z/, message:"Input correctly"}
+  # addressesテーブルのバリデーション
+  validates :postal, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'Input correctly' }
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'Input correctly' }
 
   def save
     @order = Order.create(user_id: user, item_id: item, token: token)
     Address.create(postal: postal, prefecture_id: prefecture_id, city: city, house_number: house_number,
                    building: building, phone_number: phone_number, order_id: @order.id)
   end
-
 end
