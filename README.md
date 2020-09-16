@@ -31,7 +31,7 @@
 | duration_id   | integer    | null: false                    |
 
 ### Association
-- has_one :purchase
+- has_one :order
 - belongs_to :user
 - belongs_to_active_hash :category
 - belongs_to_active_hash :status
@@ -39,7 +39,7 @@
 - belongs_to_active_hash :prefecture
 - belongs_to_active_hash :duration
 
-## purchasesテーブル
+## ordersテーブル
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
 | user     | references | null: false, foreign_key: true |
@@ -59,8 +59,8 @@
 | house_number  | string     | null: false                    |
 | building      | string     |                                |
 | phone_number  | string     | null: false                    |
-| purchase      | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :purchase
+- belongs_to :order
 - belongs_to_active_hash :prefecture
