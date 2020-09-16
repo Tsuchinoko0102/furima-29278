@@ -11,14 +11,11 @@ class OrdersController < ApplicationController
   def create
     item_user_scan
     @order = OrderAddress.new(order_params)
-    binding.pry
     if @order.valid?
-      binding.pry
       pay_item
       @order.save
       redirect_to root_path
     else
-      binding.pry
       redirect_to item_orders_path
     end
   end
