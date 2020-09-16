@@ -40,11 +40,10 @@ class OrdersController < ApplicationController
 
   def user_check
     item_user_scan
-    redirect_to root_path if @user.id == @item.user.id
+    redirect_to root_path if current_user.id == @item.user.id
   end
 
   def item_user_scan
-    @user = current_user
     @item = Item.find(params[:item_id])
   end
 

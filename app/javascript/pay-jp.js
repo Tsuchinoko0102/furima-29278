@@ -12,8 +12,6 @@ function pay() {
       exp_year:`20${document.getElementById("card-exp-year").value}`
     };
     
-    console.log(card);
-    
 
     Payjp.createToken(card, function(status, response){
       if (response.error){
