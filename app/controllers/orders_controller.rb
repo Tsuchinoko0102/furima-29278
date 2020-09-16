@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   def index
     item_user_scan
     @order = OrderAddress.new
+    @order_address = OrderAddress.new
   end
 
   def create
@@ -16,7 +17,7 @@ class OrdersController < ApplicationController
       @order.save
       redirect_to root_path
     else
-      redirect_to item_orders_path
+      render "index"
     end
   end
 
