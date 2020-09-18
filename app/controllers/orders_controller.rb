@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
     @order = OrderAddress.new
     @order_address = OrderAddress.new
   end
-
+ 
   def create
     item_user_scan
     @order = OrderAddress.new(order_params)
