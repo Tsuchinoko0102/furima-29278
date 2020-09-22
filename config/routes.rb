@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   resources :items do
     resources :orders, only:[:index, :create]
   end
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
 end
