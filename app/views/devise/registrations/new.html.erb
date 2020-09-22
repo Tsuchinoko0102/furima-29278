@@ -98,8 +98,13 @@
       <br>に同意したものとみなします
     </h2>
   </div>
+  <div class='register-btn profile-set'>
+    <%= f.submit "住所登録をする" ,class:"register-red-btn profile-set", name: "profile" %>
+  </div>
+  <br>
   <div class='register-btn'>
-    <%= f.submit "会員登録" ,class:"register-red-btn" %>
+    <% f.label :submit %>
+    <%= f.submit "住所登録をせずに会員登録" ,class:"register-red-btn", name: "submit" %>
   </div>
   <p class='register-info'>本人情報の登録について</p>
 </div>

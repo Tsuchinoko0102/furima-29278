@@ -6,13 +6,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    super
+    @user = User.new
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.new(sign_up_params)
+    unless @user.valid?
+      render :new
+    end
+
+    profile = params[:profile]
+    submit = params[:submit]
+
+
+  end
 
   # GET /resource/edit
   # def edit
