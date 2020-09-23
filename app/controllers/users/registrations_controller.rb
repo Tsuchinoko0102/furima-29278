@@ -34,7 +34,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_profile
-    binding.pry
     @user = User.new(session["devise_regist_data"]["user"])
     @profile = Profile.new(profile_params)
     if @profile.valid?
