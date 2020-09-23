@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+
+  devise_scope :users do
+    get 'items_index', to: 'items#index'
+  end
 end

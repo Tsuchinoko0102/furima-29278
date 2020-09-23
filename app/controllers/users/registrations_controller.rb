@@ -13,14 +13,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(sign_up_params)
     unless @user.valid?
-      render :new
+      return render :new
     end
 
     profile = params[:profile]
     submit = params[:submit]
 
+    if submit.present?
+      @user.save
+      sign_in(:user, @user)
+      redirect_to root_path
+    end
 
   end
+
+  # protected
+  # def after_sign_up_path_for(resource)
+  #   items_index_path
+  # end
 
   # GET /resource/edit
   # def edit
