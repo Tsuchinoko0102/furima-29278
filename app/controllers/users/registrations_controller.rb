@@ -12,20 +12,47 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @user = User.new(sign_up_params)
-    unless @user.valid?
-      return render :new
+    if @user.valid?
+      profile = params[:profile]
+      submit = params[:submit]
+
+      if profile.present?
+        session["devise_regist_data"] = {user: @user.attributes}
+        session["devise_regist_data"][:user]["password"] = params[:user][:password]
+        @profile = @user.build_profile
+        return render :new_profile
+      end
+
+      if submit.present?
+        @user.save
+        sign_in(:user, @user)
+        return redirect_to root_path
+      end
+    else
+      render :new
     end
-
-    profile = params[:profile]
-    submit = params[:submit]
-
-    if submit.present?
-      @user.save
-      sign_in(:user, @user)
-      redirect_to root_path
-    end
-
   end
+
+  def create_profile
+    binding.pry
+    @user = User.new(session["devise_regist_data"]["user"])
+    @profile = Profile.new(profile_params)
+    if @profile.valid?
+      @user.build_profile(@profile.attributes)
+      @user.save
+      session["devise_regist_data"].clear
+      sign_in(:user, @user)
+      return redirect_to root_path
+    else
+      render :new_profile
+    end
+  end
+
+  protected
+  def profile_params
+    params.require(:profile).permit(:postal, :prefecture_id, :city, :house_number, :building, :phone_number)
+  end
+
 
   # protected
   # def after_sign_up_path_for(resource)

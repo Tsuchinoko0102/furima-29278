@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  devise_scope :users do
-    get 'items_index', to: 'items#index'
+  devise_scope :user do
+    get 'profiles', to: 'users/registrations#new_profile'
+    post 'profiles', to: 'users/registrations#create_profile'
   end
 end
