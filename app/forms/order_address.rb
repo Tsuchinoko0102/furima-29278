@@ -1,7 +1,7 @@
 class OrderAddress
   include ActiveModel::Model
   attr_accessor :user, :item, :postal, :prefecture_id,
-                :city, :house_number, :building, :phone_number, :order, :token, :price, :order_id
+                :city, :house_number, :building, :phone_number, :order, :token, :price, :order_id, :address
 
   with_options presence: true do
     # ordersテーブルのバリデーション
