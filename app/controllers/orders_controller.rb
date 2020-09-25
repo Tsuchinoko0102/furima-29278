@@ -12,6 +12,12 @@ class OrdersController < ApplicationController
   def create
     item_user_scan
     @order = OrderAddress.new(order_params)
+    if @order.address == "profile"
+      @order=OrderAddress.new(order_params.merge(postal: current_user.profile.postal, prefecture_id: current_user.profile.prefecture_id,
+                      city: current_user.profile.city, house_number: current_user.profile.house_number,
+                      building: current_user.profile.building, phone_number: current_user.profile.phone_number))
+    end
+   
     if @order.valid?
       pay_item
       @order.save
@@ -25,7 +31,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order_address)
-          .permit(:token, :postal, :prefecture_id, :city, :house_number, :building, :phone_number, :order_id)
+          .permit(:token, :postal, :prefecture_id, :city, :house_number, :building, :phone_number, :order_id, :address)
           .merge(user: current_user.id, item: @item.id, price: @item.price)
   end
 
