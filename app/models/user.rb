@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_one :profile
   NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze
   READING_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   PASS_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
