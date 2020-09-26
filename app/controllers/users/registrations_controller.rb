@@ -71,10 +71,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-        redirect_to root_path
     Profile.find_by(user_id: current_user.id)
     if @profile = Profile.update(profile_params)
-      redirect_to root_path
+      redirect_to root_path and return
     else
       render :edit
     end
