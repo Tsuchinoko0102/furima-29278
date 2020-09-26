@@ -71,21 +71,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    if current_user.profile.present?
-      Profile.find_by(user_id: current_user.id)
-      if @profile = Profile.update(profile_params)
         redirect_to root_path
-      else
-        render :edit
-      end
-    elsif current_user.profile.blank?
-      @profile = Profile.new(profile_params)
-      @profile.merge(user: current_user.id)
-      if @profile.save
-        return redirect_to root_path
-      else
-        render :edit
-      end
+    Profile.find_by(user_id: current_user.id)
+    if @profile = Profile.update(profile_params)
+      redirect_to root_path
+    else
+      render :edit
     end
   end
 
