@@ -33,17 +33,49 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def new_profile
+    @profile = Profile.new
+  end
+
   def create_profile
-    @user = User.new(session["devise_regist_data"]["user"])
-    @profile = Profile.new(profile_params)
-    if @profile.valid?
-      @user.build_profile(@profile.attributes)
-      @user.save
-      session["devise_regist_data"].clear
-      sign_in(:user, @user)
-      return redirect_to root_path
+    if session["devise_regist_data"].present?
+      @user = User.new(session["devise_regist_data"]["user"])
+      @profile = Profile.new(profile_params)
+      if @profile.valid?
+        @user.build_profile(@profile.attributes)
+        @user.save
+        session["devise_regist_data"].clear
+        sign_in(:user, @user)
+        return redirect_to root_path
+      else
+        render :new_profile
+      end
     else
-      render :new_profile
+      @profile = Profile.new(profile_params)
+      if @profile.valid?
+        @profile.user_id = current_user.id
+        @profile.save
+        return redirect_to root_path
+      else
+        render :new_profile
+      end
+    end
+  end
+
+  def edit
+    if current_user.profile.present?
+      @profile = Profile.find_by(user_id: current_user.id)
+    else
+      @profile = Profile.new
+    end
+  end
+
+  def update
+    Profile.find_by(user_id: current_user.id)
+    if @profile = Profile.update(profile_params)
+      redirect_to root_path and return
+    else
+      render :edit
     end
   end
 
